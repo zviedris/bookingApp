@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/css/datepicker-bs5.min.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/notie/dist/notie.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css">
+
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Rooms
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="searoom.html">Sea room</a></li>
+                  <li><a class="dropdown-item" href="forestroom.html">Forest room</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="contact.html">Contact</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="booknow.html">Book now</a>
+              </li>
+            </ul>
+            <!--
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            -->
+          </div>
+        </div>
+      </nav>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center mt-4"> This will be a booknow page</h1>
+                Your home away from home!
+            </div>
+        </div>
+    </div>
+
+    <div class="container px-4">
+        <div id="reservationDates">
+            <input required type="text" name="start" placeholder="Arrival date">
+            <span>to</span>
+            <input required type="text" name="end" placeholder="Departure date">  
+         <!--<form>
+            <div class="row">
+                <label for="startDate" class="col-sm-2 col-form-label">Start date</label>
+                <div class="col col-sm-4">
+                    <input required type="date" class="form-control" id="startDate" placeholder="start date">
+                </div>
+            </div>
+            <div class="row">
+                <label for="endDate" class="col-sm-2 col-form-label">End date</label>
+                <div class="col col-sm-4">
+                    <input required type="date" class="form-control" id="endDate" placeholder="end date">
+                </div>
+            </div> 
+            <button type="submit" class="btn btn-primary">Search room</button>
+        </form>-->
+        <button type="submit" class="btn btn-primary" id = "search-room">Search room</button>
+    </div>
+
+    <div class="row footer">
+        <div class="col">
+            Info about hotel
+        </div>
+    </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.2.0/dist/js/datepicker-full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        let attention = Prompt();
+
+        const elem = document.getElementById('reservationDates');
+        const rangepicker = new DateRangePicker(elem, {
+        // ...options
+        format: "yyyy-mm-dd" 
+        });
+
+        document.getElementById("search-room").addEventListener("click", function(){
+            //notifyModal("Test", "It is all cool", "success", "Ok");
+            let html = `
+            <div class="container px-4">
+                <div id="reservationDatesPop">
+                    <input id = "startDate" disabled required type="text" name="start" placeholder="Arrival date">
+                    <span>to</span>
+                    <input id = "endDate" disabled required type="text" name="end" placeholder="Departure date">  
+                <button type="submit" class="btn btn-primary" id = "search-room">Search room</button>
+            </div>
+            `
+            attention.custom({msg: html, title: "Test"});
+        })
+
+        function notify (msg, type){
+            notie.alert({
+                type: type, // optional, default = 4, enum: [1, 2, 3, 4, 5, 'success', 'warning', 'error', 'info', 'neutral']
+                text: msg/*,
+                stay: Boolean, // optional, default = false
+                time: Number, // optional, default = 3, minimum = 1,
+                position: String // optional, default = 'top', enum: ['top', 'bottom']
+                */
+            })
+        }
+
+        function notifyModal (title, message, icon, buttonText){
+        Swal.fire({
+            title: title,
+            text: message,
+            icon: icon,
+            confirmButtonText: buttonText
+            })
+        }
+
+        function Prompt(){
+            let toast = function(c){
+                const {
+                    msg = "",
+                    icon = "success",
+                    position = "top-end"
+                } = c;
+                const Toast = Swal.mixin({
+                toast: true,
+                position: position,
+                icon: icon,
+                title: msg,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+                })
+
+                Toast.fire({               
+                })
+            }
+
+            let success = function(c){
+                const {
+                    msg = "",
+                    icon = "success",
+                    title = ""
+                } = c;
+                Swal.fire({
+                    icon: icon,
+                    title: title,
+                    text: msg,
+                    })
+            }
+
+            let error = function(c){
+                const {
+                    msg = "",
+                    title = ""
+                } = c;
+                Swal.fire({
+                    icon: "error",
+                    title: title,
+                    text: msg,
+                    })
+            }
+
+            
+
+            function custom(c){
+                const {
+                    msg = "",
+                    title = ""
+                } = c;
+
+                const { value: formValues } =  Swal.fire({
+                    title: title,
+                    html:msg,
+                    focusConfirm: false,
+                    backdrop: false,
+                    showCancelButton: true,
+                    willOpen: () => {
+                        const elem1 = document.getElementById('reservationDatesPop');
+                        const rangepicker = new DateRangePicker(elem1, {
+                        // ...options
+                        format: "yyyy-mm-dd" 
+                        });
+                    },
+                    didOpen: () => {
+                        document.getElementById('startDate').removeAttribute('disabled');
+                        document.getElementById('endDate').removeAttribute('disabled');
+                    },
+                    preConfirm: () => {
+                        return [
+                        document.getElementById('startDate').value,
+                        document.getElementById('endDate').value
+                        ]
+                    }
+                    })
+
+                    if (formValues) {
+                    Swal.fire(JSON.stringify(formValues))
+                    }
+            }
+
+            return {
+                toast:toast,
+                success:success,
+                error: error,
+                custom: custom,
+            }
+        }
+
+    </script>
+    <script src="https://unpkg.com/notie"></script>
+</body>
+</html>

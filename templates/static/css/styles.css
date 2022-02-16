@@ -1,0 +1,19 @@
+.notie-container {
+    box-shadow: none;
+}
+.footer{
+    background-color: rgb(83, 70, 65);
+    margin-top: 1.5em;
+    height: 3em;
+    padding: 1em;
+    color: white;
+    font-size: 50%;
+}
+
+.room-image{
+    max-width: 50%;
+}
+
+.datepicker {
+    z-index: 10000;
+}
