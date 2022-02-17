@@ -46,3 +46,23 @@ func (m *Repository) About(w http.ResponseWriter, r *http.Request) {
 		StringMap: stringMap,
 	})
 }
+
+//Home is the home page handler
+func (m *Repository) Forest(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "forestroom.page.tmpl", &models.TemplateData{})
+}
+
+//Home is the home page handler
+func (m *Repository) Sea(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "searoom.page.tmpl", &models.TemplateData{})
+}
+
+//Home is the home page handler
+func (m *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "contact.page.tmpl", &models.TemplateData{})
+}
+
+//Home is the home page handler
+func (m *Repository) Booknow(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "booknow.page.tmpl", &models.TemplateData{})
+}

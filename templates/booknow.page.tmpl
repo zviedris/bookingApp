@@ -1,0 +1,20 @@
+{{template "base" .}}
+
+{{define "content"}}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center mt-4"> This will be a booknow page</h1>
+            Your home away from home!
+        </div>
+    </div>
+</div>
+
+<div class="container px-4">
+    <div id="reservationDates">
+        <input required type="text" name="start" placeholder="Arrival date">
+        <span>to</span>
+        <input required type="text" name="end" placeholder="Departure date">  
+    <button type="submit" class="btn btn-primary" id = "search-room">Search room</button>
+</div>
+{{end}}
