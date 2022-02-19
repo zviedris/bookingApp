@@ -43,7 +43,35 @@
 
 <div class="row">
     <div class = "col text-center">
-        <a href="/booknow" class="btn btn-success">Make Reservation Now</a>
+        <a id="searchroom" class="btn btn-success">Make Reservation Now</a>        
     </div>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    const button = document.getElementById('searchroom');
+    var token = document.getElementById('csrf_toke').value;
+    
+    var getActive = browser.tabs.query({active: true, currentWindow: true});
+    getActive.then(setCookie);
+
+    function setCookie(tabs) {
+    browser.cookies.set({
+        url: tabs[0].url,
+        csrf_token: token
+    });
+    }
+
+    button.addEventListener('click', async _ => {
+        try {     
+        const response = await fetch('/searchroom', {
+            method: 'post'
+        });
+        console.log('Completed!', response);
+        } catch(err) {
+        console.error(`Error: ${err}`);
+        }
+    });
+</script>
 {{end}}

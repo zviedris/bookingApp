@@ -20,7 +20,68 @@
 
 <div class="row">
     <div class = "col text-center">
-        <a href="/check-forest" class="btn btn-success">Check Availability</a>
+        <a href="#!" id ="check-availability-button" class="btn btn-success">Check Availability</a>
     </div>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    document.getElementById("check-availability-button").addEventListener("click", function () {
+        let html = `
+        <form id="check-availability-form" action="" method="post" novalidate class="needs-validation">
+            <div class="form-row">
+                <div class="col">
+                    <div class="form-row" id="reservation-dates-modal">
+                        <div class="col">
+                            <input disabled required autocomplete="off" class="form-control" type="text" name="start" id="start" placeholder="Arrival">
+                        </div>
+                        <div class="col">
+                            <input disabled required autocomplete="off" class="form-control" type="text" name="end" id="end" placeholder="Departure">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+        `;
+        attention.custom({
+            title: 'Choose your dates',
+            msg: html,
+            willOpen: () => {
+                const elem1 = document.getElementById('reservation-dates-modal');
+                            const rangepicker = new DateRangePicker(elem1, {
+                            // ...options
+                            format: "yyyy-mm-dd" 
+                            });
+                    },
+            didOpen: () => {
+                document.getElementById('start').removeAttribute('disabled');
+                document.getElementById('end').removeAttribute('disabled');
+            },
+            preConfirm: () => {
+                return [
+                document.getElementById('start').value,
+                document.getElementById('end').value
+                ]
+            },        
+            callback: function(formValues){
+                console.log("Hello world! 2");
+                
+                let form = document.getElementById("check-availability-form");
+                let formData = new FormData(form);
+                formData.append("csrf_token", "{{.CSRFToken}}");
+
+                fetch("/searchroom-availability", {
+                    method: "post",
+                    body: formData,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                    })
+            },
+        });
+    })
+</script>
 {{end}}

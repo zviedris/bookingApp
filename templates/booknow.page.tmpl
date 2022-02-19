@@ -11,10 +11,24 @@
 </div>
 
 <div class="container px-4">
-    <div id="reservationDates">
-        <input required type="text" name="start" placeholder="Arrival date">
-        <span>to</span>
-        <input required type="text" name="end" placeholder="Departure date">  
-    <button type="submit" class="btn btn-primary" id = "search-room">Search room</button>
+    <div id="">
+        <form action="/searchroom" method="post">
+            <input type="hidden" name = "csrf_token" value="{{.CSRFToken}}">
+            <div class="row" id='reservationDates'>
+                <input required type="text" name="start" autocomplete="off" placeholder="Arrival date">
+                <span>to</span>
+                <input required type="text" name="end" autocomplete="off" placeholder="Departure date">  
+            </div>
+            <button type="submit" class="btn btn-primary" >Search room</button>
+        </form>
 </div>
+{{end}}
+
+{{define "js"}}
+<script>
+    const elem = document.getElementById('reservationDates');
+    const rangePicker = new DateRangePicker(elem, {
+        format: "yyyy-mm-dd",
+    });
+</script>
 {{end}}
