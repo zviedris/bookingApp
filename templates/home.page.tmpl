@@ -51,17 +51,6 @@
 {{define "js"}}
 <script>
     const button = document.getElementById('searchroom');
-    var token = document.getElementById('csrf_toke').value;
-    
-    var getActive = browser.tabs.query({active: true, currentWindow: true});
-    getActive.then(setCookie);
-
-    function setCookie(tabs) {
-    browser.cookies.set({
-        url: tabs[0].url,
-        csrf_token: token
-    });
-    }
 
     button.addEventListener('click', async _ => {
         try {     
