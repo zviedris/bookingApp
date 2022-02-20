@@ -137,12 +137,15 @@
         }
 
         {{with .Error}}
-        console.log("error");
         notify("{{.}}", "error");
         {{end}}
 
         {{with .Flash}}
         notify("{{.}}", "success");
+        {{end}}
+
+        {{with .Warning}}
+        notify("{{.}}", "warning");
         {{end}}
 
         function Prompt(){
