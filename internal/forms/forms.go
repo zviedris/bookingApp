@@ -25,7 +25,7 @@ func New(data url.Values) *Form {
 
 //Has checks if a form is in post and not an empty field
 func (f *Form) Has(field string, r *http.Request) bool {
-	x := r.Form.Get(field)
+	x := r.PostForm.Get(field)
 	if x == "" {
 		f.Errors.Add(field, "This field cannot be blank")
 		return false
@@ -49,7 +49,7 @@ func (f *Form) Required(fields ...string) {
 
 //MinLength check for minimal length
 func (f *Form) MinLength(field string, length int, r *http.Request) bool {
-	x := r.Form.Get(field)
+	x := r.PostForm.Get(field)
 	if len(x) < length {
 		f.Errors.Add(field, fmt.Sprintf("Field should be at least %d in length", length))
 		return false
