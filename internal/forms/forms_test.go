@@ -39,6 +39,16 @@ func TestForm_Valid_False(t *testing.T) {
 	if isValid {
 		t.Error("should found error as missing required field")
 	}
+
+	err := form.Errors.Get("name")
+	if err != "" {
+		t.Error("field should not have error, got error")
+	}
+
+	err = form.Errors.Get("a")
+	if err == "" {
+		t.Error("field should have error, is ok")
+	}
 }
 
 func TestForm_Has(t *testing.T) {
@@ -99,5 +109,18 @@ func TestForm_Email(t *testing.T) {
 	if len(form.Errors) == 0 {
 		t.Error("Should found email error got correct")
 	}
+
+}
+
+func TestForm_Get(t *testing.T) {
+	postdata := url.Values{}
+	postdata.Add("email", "Smith@example.com")
+	postdata.Add("name", "Jonh@smith")
+
+	r := httptest.NewRequest("POST", "/testw", nil)
+	r.PostForm = postdata
+
+	form := New(r.PostForm)
+	form.Get("name")
 
 }
