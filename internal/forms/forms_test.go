@@ -59,12 +59,12 @@ func TestForm_Has(t *testing.T) {
 	r.PostForm = postdata
 
 	form := New(r.PostForm)
-	testVal := form.Has("name", r)
+	testVal := form.Has("name")
 	if !testVal {
 		t.Error("got has no field should have got field")
 	}
 
-	testVal = form.Has("surname", r)
+	testVal = form.Has("surname")
 	if testVal {
 		t.Error("got has field shouldn 't have field")
 	}
@@ -79,12 +79,12 @@ func TestForm_MinLength(t *testing.T) {
 	r.PostForm = postdata
 
 	form := New(r.PostForm)
-	testVal := form.MinLength("name", 6, r)
+	testVal := form.MinLength("name", 6)
 	if testVal {
 		t.Error("Min length function not finding too short string")
 	}
 
-	testVal = form.MinLength("name", 4, r)
+	testVal = form.MinLength("name", 4)
 	if !testVal {
 		t.Error("Min length function error on correct string")
 	}
