@@ -3,6 +3,7 @@ package handlers
 import (
 	"encoding/gob"
 	"fmt"
+	"os"
 
 	"html/template"
 	"log"
@@ -14,6 +15,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/justinas/nosurf"
+	"github.com/zviedris/bookings/helpers"
 	"github.com/zviedris/bookings/internal/config"
 	"github.com/zviedris/bookings/internal/models"
 	"github.com/zviedris/bookings/internal/render"
@@ -28,6 +30,12 @@ func getRoutes() http.Handler {
 
 	//change to true when production
 	app.InProduction = false
+
+	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
 
 	//add value to store in session
 	gob.Register(models.Reservation{})
@@ -53,7 +61,7 @@ func getRoutes() http.Handler {
 	//create a new repo for handlers
 	repo := NewRepo(&app)
 	NewHandlers(repo)
-
+	helpers.NewHelpers(&app)
 	render.NewTemplates(&app)
 
 	mux := chi.NewRouter()

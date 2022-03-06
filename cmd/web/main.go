@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/alexedwards/scs/v2"
+	"github.com/zviedris/bookings/helpers"
 	"github.com/zviedris/bookings/internal/config"
 	"github.com/zviedris/bookings/internal/handlers"
 	"github.com/zviedris/bookings/internal/models"
@@ -18,6 +20,8 @@ const portNumber = ":8080"
 
 var app config.AppConfig
 var s1 *scs.SessionManager
+var infoLog *log.Logger
+var errorLog *log.Logger
 
 func main() {
 	err := run()
@@ -43,6 +47,12 @@ func run() error {
 	//change to true when production
 	app.InProduction = false
 
+	infoLog = log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
+	app.InfoLog = infoLog
+
+	errorLog = log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
+	app.ErrorLog = errorLog
+
 	//add value to store in session
 	gob.Register(models.Reservation{})
 
@@ -65,7 +75,7 @@ func run() error {
 	//create a new repo for handlers
 	repo := handlers.NewRepo(&app)
 	handlers.NewHandlers(repo)
-
+	helpers.NewHelpers(&app)
 	render.NewTemplates(&app)
 
 	//http.HandleFunc("/", handlers.Repo.Home)
